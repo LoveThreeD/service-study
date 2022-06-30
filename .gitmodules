@@ -1,0 +1,3 @@
+[submodule "wrapper-study/assets"]
+	path = wrapper-study/assets
+	url = git@github.com:LoveThreeD/service-common.git
