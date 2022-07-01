@@ -1,27 +1,30 @@
 package main
 
 import (
-	"auth-study/handler"
-	pb "auth-study/proto"
+	"cache-study/handler"
+	pb "cache-study/proto"
 
-	"github.com/asim/go-micro/plugins/auth/jwt/v3"
 	"github.com/asim/go-micro/v3"
 	"github.com/asim/go-micro/v3/logger"
 )
 
+var (
+	service = "go.micro.srv.cache"
+	version = "latest"
+)
+
 func main() {
-	auth := jwt.NewAuth()
 
 	// Create service
 	srv := micro.NewService(
-		micro.Name("auth"),
-		micro.Auth(auth),
+		micro.Name(service),
+		micro.Version(version),
 	)
+	srv.Init()
 
 	// Register handler
-	pb.RegisterAuthStudyHandler(srv.Server(), handler.New())
+	pb.RegisterCacheHandler(srv.Server(), handler.NewCache())
 
-	// Run service
 	if err := srv.Run(); err != nil {
 		logger.Fatal(err)
 	}
